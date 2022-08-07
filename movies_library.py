@@ -128,4 +128,51 @@ def top_titles(m_s_list, top_number, content_type="both"):
         res.append(by_popularity_desc[i])
     return res
 
- 
+if __name__ == "__main__":
+    library_of_movies_and_series = [
+        Movie("Titanic", 1996, "catastrophic", 45000,),
+        Movie("Avatar", 2004, "adventure", 10000),
+        Series("Friends", 1990, "comedy", 10000, 1, 1),
+        Series("Friends", 1990, "comedy", 10001, 2, 1),
+        Series("Friends", 1990, "comedy", 10002, 3, 1),
+        Series("Friends", 1990, "comedy", 10003, 4, 1),
+        Series("The Simpsons", 2000, "animation", 20000, 1, 1),
+        Series("The Simpsons", 2000, "animation", 30000, 1, 2),
+        Series("The Simpsons", 2000, "animation", 40000, 2, 3),
+        Series("The Simpsons", 2000, "animation", 50000, 2, 4),
+    ]
+
+    top_both = top_titles(library_of_movies_and_series, 2)
+    top_movies = top_titles(library_of_movies_and_series, 2, "movies")
+    top_series = top_titles(library_of_movies_and_series, 2, "series")
+
+    print('1: TOP_BOTH-----------------------------')
+    for m in top_both:
+        print(f"{m} - number of paying: {m.number_of_playing}")
+    
+    print('2: TOP_MOVIES -----------------------------')
+    for m in top_movies:
+        print(f"{m} - number of paying: {m.number_of_playing}")
+    
+    print('3: TOP_SERIES-----------------------------')
+    for m in top_series:
+        print(f"{m} - number of paying: {m.number_of_playing}")
+
+    print('4: SEARCH_TITANIC-----------------------------')
+
+    titanic = search(library_of_movies_and_series,"Titanic")
+    print(titanic.title)
+
+    generate_views_times_10(library_of_movies_and_series)
+    
+    only_movies = get_movies(library_of_movies_and_series)
+    only_series = get_series(library_of_movies_and_series)
+
+    print('5: ONLY MOVIES WITH GENERATE VIEWS-----------------------------')
+
+    for m in only_movies:
+        print(f"{m} - number of paying: {m.number_of_playing}")
+
+    print('5: ONLY SERIES WITH GENERATE VIEWS-----------------------------')
+    for s in only_series:
+        print(f"{s} - number of paying: {s.number_of_playing}")  
