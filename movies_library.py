@@ -6,6 +6,7 @@ class Movie:
     """
     Class responsible for representing movies
     """
+
     def __init__(self, title, year, genre, number_of_playing) -> None:
         self.title = title
         self.year = year
@@ -22,7 +23,8 @@ class Movie:
 class Series(Movie):
     """
     Class responsible for representing series
-    """    
+    """
+
     def __init__(
         self, title, year, genre, number_of_playing, series_number, season_number
     ) -> None:
@@ -39,7 +41,7 @@ def get_movies(m_s_list) -> list:
     Returns only movies from given library
     Arguments:
     - m_s_list - list of movies and series
-    """    
+    """
     res = []
     for l in m_s_list:
         if isinstance(l, Series):
@@ -54,7 +56,7 @@ def get_series(m_s_list) -> list:
     Returns only series from given library
     Arguments:
     - m_s_list - list of movies and series
-    """   
+    """
     res = []
     for l in m_s_list:
         if isinstance(l, Series):
@@ -96,7 +98,7 @@ def generate_views_times_10(m_s_list):
     chosen movie or series
     Arguments: 
     - m_s_list - list of movies and series
-    """    
+    """
     for _ in range(10):
         generate_views(m_s_list)
 
@@ -128,6 +130,7 @@ def top_titles(m_s_list, top_number, content_type="both"):
         res.append(by_popularity_desc[i])
     return res
 
+
 if __name__ == "__main__":
     library_of_movies_and_series = [
         Movie("Titanic", 1996, "catastrophic", 45000,),
@@ -146,33 +149,33 @@ if __name__ == "__main__":
     top_movies = top_titles(library_of_movies_and_series, 2, "movies")
     top_series = top_titles(library_of_movies_and_series, 2, "series")
 
-    print('1: TOP_BOTH-----------------------------')
+    print("1: TOP_BOTH-----------------------------")
     for m in top_both:
         print(f"{m} - number of paying: {m.number_of_playing}")
-    
-    print('2: TOP_MOVIES -----------------------------')
+
+    print("2: TOP_MOVIES -----------------------------")
     for m in top_movies:
         print(f"{m} - number of paying: {m.number_of_playing}")
-    
-    print('3: TOP_SERIES-----------------------------')
+
+    print("3: TOP_SERIES-----------------------------")
     for m in top_series:
         print(f"{m} - number of paying: {m.number_of_playing}")
 
-    print('4: SEARCH_TITANIC-----------------------------')
+    print("4: SEARCH_TITANIC-----------------------------")
 
-    titanic = search(library_of_movies_and_series,"Titanic")
+    titanic = search(library_of_movies_and_series, "Titanic")
     print(titanic.title)
 
     generate_views_times_10(library_of_movies_and_series)
-    
+
     only_movies = get_movies(library_of_movies_and_series)
     only_series = get_series(library_of_movies_and_series)
 
-    print('5: ONLY MOVIES WITH GENERATE VIEWS-----------------------------')
+    print("5: ONLY MOVIES WITH GENERATE VIEWS-----------------------------")
 
     for m in only_movies:
         print(f"{m} - number of paying: {m.number_of_playing}")
 
-    print('5: ONLY SERIES WITH GENERATE VIEWS-----------------------------')
+    print("5: ONLY SERIES WITH GENERATE VIEWS-----------------------------")
     for s in only_series:
-        print(f"{s} - number of paying: {s.number_of_playing}")  
+        print(f"{s} - number of paying: {s.number_of_playing}")
