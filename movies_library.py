@@ -36,19 +36,29 @@ class Series(Movie):
         return f"{self.title} S{self.season_number:02}E{self.series_number:02}"
 
 
+def get_kind(m_s_list, content_type):
+    """
+    Returns only movies from given library
+    Arguments:
+    - m_s_list - list of movies and series
+    - content_type - movie/series
+    """
+    res = []
+    for l in m_s_list:
+        if type(l) == Movie and content_type == "movie":
+            res.append(l)
+        if type(l) == Series and content_type == "series":
+            res.append(l)
+    return res
+
+
 def get_movies(m_s_list) -> list:
     """
     Returns only movies from given library
     Arguments:
     - m_s_list - list of movies and series
     """
-    res = []
-    for l in m_s_list:
-        if isinstance(l, Series):
-            pass
-        else:
-            res.append(l)
-    return res
+    return get_kind(m_s_list, content_type="movie")
 
 
 def get_series(m_s_list) -> list:
@@ -57,11 +67,7 @@ def get_series(m_s_list) -> list:
     Arguments:
     - m_s_list - list of movies and series
     """
-    res = []
-    for l in m_s_list:
-        if isinstance(l, Series):
-            res.append(l)
-    return res
+    return get_kind(m_s_list, content_type="series")
 
 
 def search(m_s_list, title):
@@ -71,11 +77,8 @@ def search(m_s_list, title):
     - m_s_list - list of movies and series
     - title
     """
-    found = False
-    i = 0
-    while not found:
+    for i in range(len(m_s_list)):
         if m_s_list[i].title == title:
-            found = True
             return m_s_list[i]
     return None
 
@@ -89,7 +92,7 @@ def generate_views(m_s_list):
     """
     movie_index = random.randint(0, len(m_s_list) - 1)
     movie_or_series = m_s_list[movie_index]
-    movie_or_series.number_of_playing = random.randint(1, 100)
+    movie_or_series.number_of_playing += random.randint(1, 100)
 
 
 def generate_views_times_10(m_s_list):
@@ -112,7 +115,7 @@ def top_titles(m_s_list, top_number, content_type="both"):
     - m_s_list - list of movies and series
     
     """
-    res = []
+
     list_to_process = []
 
     if content_type == "both":
@@ -124,18 +127,17 @@ def top_titles(m_s_list, top_number, content_type="both"):
 
     by_popularity_desc = sorted(
         list_to_process,
-        key=lambda movie_or_series: -1 * movie_or_series.number_of_playing,
+        key=lambda movie_or_series: movie_or_series.number_of_playing,
+        reverse=True,
     )
-    for i in range(top_number):
-        res.append(by_popularity_desc[i])
-    return res
+
+    return by_popularity_desc[:top_number]
 
 
 if __name__ == "__main__":
     print("Biblioteka filmów.")
-
     library_of_movies_and_series = [
-        Movie("Titanic", 1996, "catastrophic", 10,),
+        Movie("Titanic", 1996, "catastrophic", 10),
         Movie("Avatar", 2004, "adventure", 10),
         Series("Friends", 1990, "comedy", 10, 1, 1),
         Series("Friends", 1990, "comedy", 10, 2, 1),
