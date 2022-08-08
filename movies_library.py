@@ -13,7 +13,10 @@ class Movie:
         self.genre = genre
         self.number_of_playing = number_of_playing
 
-    def __str__(self) -> str:
+    # def __str__(self) -> str:
+    #     return f"{self.title} ({self.year})"
+
+    def __repr__(self) -> str:
         return f"{self.title} ({self.year})"
 
     def play(self):
