@@ -47,7 +47,7 @@ def get_kind(m_s_list, content_type):
     for l in m_s_list:
         if type(l) == Movie and content_type == "movie":
             res.append(l)
-        if type(l) == Series and content_type == "series":
+        elif type(l) == Series and content_type == "series":
             res.append(l)
     return res
 
