@@ -38,7 +38,7 @@ class Series(Movie):
 
 def get_kind(m_s_list, content_type):
     """
-    Returns only movies from given library
+    Returns only given kind of items from given library
     Arguments:
     - m_s_list - list of movies and series
     - content_type - movie/series
