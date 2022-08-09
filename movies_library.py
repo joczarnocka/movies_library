@@ -1,3 +1,4 @@
+from http import server
 import random
 import datetime
 
@@ -12,9 +13,6 @@ class Movie:
         self.year = year
         self.genre = genre
         self.number_of_playing = number_of_playing
-
-    # def __str__(self) -> str:
-    #     return f"{self.title} ({self.year})"
 
     def __repr__(self) -> str:
         return f"{self.title} ({self.year})"
@@ -35,22 +33,20 @@ class Series(Movie):
         self.series_number = series_number
         self.season_number = season_number
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         return f"{self.title} S{self.season_number:02}E{self.series_number:02}"
 
 
-def get_kind(m_s_list, content_type):
+def get_kind(m_s_list, content_type_class):
     """
     Returns only given kind of items from given library
     Arguments:
     - m_s_list - list of movies and series
-    - content_type - movie/series
+    - content_type_class - class of selected content
     """
     res = []
     for l in m_s_list:
-        if type(l) == Movie and content_type == "movie":
-            res.append(l)
-        elif type(l) == Series and content_type == "series":
+        if type(l) == content_type_class:
             res.append(l)
     return res
 
@@ -61,7 +57,7 @@ def get_movies(m_s_list) -> list:
     Arguments:
     - m_s_list - list of movies and series
     """
-    return get_kind(m_s_list, content_type="movie")
+    return get_kind(m_s_list, Movie)
 
 
 def get_series(m_s_list) -> list:
@@ -70,7 +66,7 @@ def get_series(m_s_list) -> list:
     Arguments:
     - m_s_list - list of movies and series
     """
-    return get_kind(m_s_list, content_type="series")
+    return get_kind(m_s_list, Series)
 
 
 def search(m_s_list, title):
@@ -80,9 +76,9 @@ def search(m_s_list, title):
     - m_s_list - list of movies and series
     - title
     """
-    for i in range(len(m_s_list)):
-        if m_s_list[i].title == title:
-            return m_s_list[i]
+    for ms in m_s_list:
+        if ms.title == title:
+            return ms
     return None
 
 
@@ -118,8 +114,6 @@ def top_titles(m_s_list, top_number, content_type="both"):
     - m_s_list - list of movies and series
     
     """
-
-    list_to_process = []
 
     if content_type == "both":
         list_to_process = m_s_list
